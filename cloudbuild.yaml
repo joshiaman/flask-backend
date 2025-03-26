@@ -15,3 +15,6 @@ steps:
       - docker.io/joshiaman112/flask-backend:latest
       - --zone
       - northamerica-northeast2-a
+
+options:
+  logging: CLOUD_LOGGING_ONLY
