@@ -18,3 +18,33 @@ steps:
 
 options:
   logging: CLOUD_LOGGING_ONLY
+
+
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "$$DOCKER_AUTH" | docker login --username=joshiaman112 --password-stdin
+    secretEnv: ['DOCKER_AUTH']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'docker.io/joshiaman112/flask-backend:latest', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'docker.io/joshiaman112/flask-backend:latest']
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - compute
+      - instances
+      - update-container
+      - flask-backend
+      - --container-image
+      - docker.io/joshiaman112/flask-backend:latest
+      - --zone
+      - us-central1-a
+
+options:
+  logging: CLOUD_LOGGING_ONLY
