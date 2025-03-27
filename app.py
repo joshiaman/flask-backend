@@ -8,7 +8,7 @@ def hello():
 
 @app.route('/run')
 def run():
-    return 'Hellow, Cloud Build!'
+    return 'Hello, Cloud Build!'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
