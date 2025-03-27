@@ -4,8 +4,7 @@ steps:
     args:
       - '-c'
       - |
-        echo "$$DOCKER_AUTH" | docker login --username=joshiaman112 --password-stdin
-    secretEnv: ['DOCKER_AUTH']
+        echo "$_DOCKER_PASSWD" | docker login --username=joshiaman112 --password-stdin
 
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'docker.io/joshiaman112/flask-backend:latest', '.']
